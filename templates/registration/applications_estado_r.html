@@ -1,0 +1,38 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+
+<div class="card-body">
+    <h4>Recepcion of Applications</h4>
+    <table class="table" style="font-size: smaller;">
+        <thead>
+            <tr>
+                <th scope="col">Fecha Registro</th>
+                <th scope="col">Ficha Registral</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Tarifa</th>
+                <th scope="col">Documentos adjuntos</th>
+                <th scope="col">Observaciones</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+            <tr>
+                <td> {{ application.fecharegistro }}</td>
+                <td> {{ application.ficharegistral }}</td>
+                <td> {{ application.dni }}</td>
+                <td> {{ application.nombres }}</td>
+                <td> {{ application.tarifa }}</td>
+                <td> {{ application.doc_adjuntos }}</td>
+                <td> {{ application.observaciones }}</td>
+                <td>
+                    <a type="button" class="btn btn-warning" href="#">Acept</a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

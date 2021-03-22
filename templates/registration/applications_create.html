@@ -1,0 +1,12 @@
+{% extends "registration/base.html" %}
+{% block content %}
+<div class="card-body">
+    <h5>Create New Record</h5>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <a type="button" class="btn btn-danger" href="#">Cancel</a>
+        <button type="submit" class="btn btn-success">Create</button>
+    </form>
+</div>
+{% endblock %}
