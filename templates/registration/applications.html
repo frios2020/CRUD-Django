@@ -1,0 +1,89 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+<form method="GET" action="." id="frmFilter">
+<div class="card-body">
+    <table>
+        <tr>
+            <td>Fecha de Inicio:</td>
+            <td><input type="date" name="FI"></td>
+            <td>Fecha de Fin:</td>
+            <td><input type="date" name="FF"></td>
+            <td>Ficha Registral:</td>
+            <td><input type="text" name="FichaRegistral"></td>
+            <td>DNI:</td>
+            <td><input type="text" name="DNI"></td>
+            <td>Nombre:</td>
+            <td><input type="text" name="Nombres"></td>
+            <td> <button type="submit" class="btn btn-primary">Filter</button></td>
+            <td> <a type="button" class="btn btn-primary" href="/register/">Unfilter</a></td>
+        </tr>
+    </table>
+</div>
+<div class="card-body">
+    <h4>Applications List</h4>
+    <table class="table" style="font-size: smaller;">
+        <thead> 
+            <tr>
+                <th scope="col">Fecha Registro</th>
+                <th scope="col">Ficha Registral</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Tarifa</th>
+                <th scope="col">Documentos adjuntos</th>
+                <th scope="col">Observaciones</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in queryset %}
+            <tr>
+                <td> {{ application.fecharegistro }}</td>
+                <td> {{ application.ficharegistral }}</td>
+                <td> {{ application.dni }}</td>
+                <td> {{ application.nombres }}</td>
+                <td> {{ application.tarifa }}</td>
+                <td> {{ application.doc_adjuntos }}</td>
+                <td> {{ application.observaciones }}</td>
+                <td>
+                    <a type="button" class="btn btn-warning" href="Applications-Update/{{ application.id }}">Update</a>
+                    <a type="button" class="btn btn-danger" href="Applications-Delete/{{ application.id }}">Delete</a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a type="button" class="btn btn-success" href="{% url 'register:applications-create' %}">Create</a> <!-- se llama a la vista -->
+    
+
+</div>
+</form>
+
+<script>
+    $("FI").flatpickr({
+        enableTime: true,
+        dateFormat: "F, d Y H:i"
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $("#frmFilter").validate({
+            rules: {
+                DNI : {
+                required: false,
+                minlength: 8
+                },
+                FichaRegistral: {
+                required: false,
+                number: true
+                }
+            },
+            messages : {
+                DNI: {
+                minlength: "DNI should be at least 8 characters"
+            }
+        });
+    });
+</script>
+
+{% endblock %}
